@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useState} from "react";
+import NovaTarefa from "./components/NovaTarefa";
 
+
+//função principal
 function App() {
-  const [count, setCount] = useState(0)
+  //estado que guarda todas as tarefas em array
+  const [tarefas, setTarefas] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+//função que sera passada para o componente filho e adiciona uma nova tarefa
+//recebe descrição(string) e periodo(manha, tarde, noite)
+function adicionarTarefa(descricao, periodo){
+
+  //cria um objeto tarefa 
+  const novaTarefa = {
+    id: Date.now(),//id unico
+    descricao: descricao,//texto da tarefa
+    periodo: periodo,
+    concluida:false //estado inicial:pendente
+  };
+  //atualiza o estado adicionando a nova tarefa no final do array
+  //função para garantir valor correto do estado anterior
+  setTarefas((prev) => [...prev, novaTarefa]);
+  }
+
+  return(
+    <div className="container">
+      <h1>Gerenciador de Tarefas</h1>
+
+      {/*Componente filho que controla o input e o seletor*/ }
+    <NovaTarefa onAdicionar={adicionarTarefa}/>
+
+    {/*mapeando o estado tarefas para elementos*/ }
+    <h2>Lista de tarefas</h2>
+    <ul>
+      {tarefas.map((t) => (
+        <li key={t.id}>
+          {/*exibe descrição e período */}
+          <strong>{t.descricao}</strong>
+          <span style={{marginleft:8, color:"#666"}}>({t.periodo})</span>
+
+        </li>
+      ))}
+    </ul>
+    </div>
   )
 }
+export default App;
 
-export default App
