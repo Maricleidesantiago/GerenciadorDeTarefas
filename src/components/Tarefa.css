@@ -1,0 +1,53 @@
+.tarefas-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.coluna {
+  flex: 1;
+  background-color: #f7f9fc;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.coluna h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.coluna ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coluna li {
+  background: white;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Estilo para tarefas concluídas */
+.coluna li.concluida {
+  text-decoration: line-through;
+  color: #999;
+  background-color: #e0e0e0;
+}
+
+/* Texto resumo no final */
+.resumo {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+}

@@ -1,5 +1,8 @@
 import {useState} from "react";
 import NovaTarefa from "./components/NovaTarefa";
+import Tarefa from "./components/Tarefa";
+
+import "./App.css";
 
 
 //função principal
@@ -33,16 +36,10 @@ function adicionarTarefa(descricao, periodo){
 
     {/*mapeando o estado tarefas para elementos*/ }
     <h2>Lista de tarefas</h2>
-    <ul>
-      {tarefas.map((t) => (
-        <li key={t.id}>
-          {/*exibe descrição e período */}
-          <strong>{t.descricao}</strong>
-          <span style={{marginleft:8, color:"#666"}}>({t.periodo})</span>
-
-        </li>
-      ))}
-    </ul>
+    <div className="lista-tarefas">
+      
+       <Tarefa tarefas ={tarefas} />
+    </div>
     </div>
   )
 }

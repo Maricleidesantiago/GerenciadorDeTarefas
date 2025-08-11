@@ -1,0 +1,36 @@
+.nova-tarefa-container {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.input-descricao {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 300px;
+  font-size: 1rem;
+}
+
+.select-periodo {
+  margin-left: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn-adicionar {
+  margin-left: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-adicionar:hover {
+  background-color: #0047b3; /* tom mais escuro de azul no hover */
+}
