@@ -1,47 +1,61 @@
-import {useState} from "react";
-import NovaTarefa from "./components/NovaTarefa";
-import Tarefa from "./components/Tarefa";
-
+// Importa dependências do React e os estilos globais
+import { useState } from "react";
 import "./App.css";
 
+// Importa os componentes filhos
+import NovaTarefa from "./components/NovaTarefa";
+import Tarefa from "./components/Tarefa";
+import BarraProgresso from "./components/BarraProgresso";
 
-//função principal
 function App() {
-  //estado que guarda todas as tarefas em array
-  const [tarefas, setTarefas] = useState([]);
+  // Estado que armazena todas as tarefas
+  const [tarefas, setTarefas] = useState([
+    { id: 1, descricao: "Estudar React", periodo: "Manhã", concluida: true },
+    { id: 2, descricao: "Fazer almoço", periodo: "Tarde", concluida: false },
+  ]);
 
+  const totalTarefas = tarefas.length;
+  const tarefasConcluidas = tarefas.filter((t) => t.concluida).length;
 
-//função que sera passada para o componente filho e adiciona uma nova tarefa
-//recebe descrição(string) e periodo(manha, tarde, noite)
-function adicionarTarefa(descricao, periodo){
-
-  //cria um objeto tarefa 
-  const novaTarefa = {
-    id: Date.now(),//id unico
-    descricao: descricao,//texto da tarefa
-    periodo: periodo,
-    concluida:false //estado inicial:pendente
-  };
-  //atualiza o estado adicionando a nova tarefa no final do array
-  //função para garantir valor correto do estado anterior
-  setTarefas((prev) => [...prev, novaTarefa]);
+  // Função que adiciona uma nova tarefa
+  function adicionarTarefa(descricao, periodo) {
+    const novaTarefa = {
+      id: Date.now(),
+      descricao,
+      periodo,
+      concluida: false,
+    };
+    setTarefas((prev) => [...prev, novaTarefa]);
   }
 
-  return(
+  // Função para alternar o estado de concluída/não concluída
+  function tarefaConcluida(id) {
+    setTarefas((prev) =>
+      prev.map((tarefa) =>
+        tarefa.id === id
+          ? { ...tarefa, concluida: !tarefa.concluida }
+          : tarefa
+      )
+    );
+  }
+
+  return (
     <div className="container">
       <h1>Gerenciador de Tarefas</h1>
 
-      {/*Componente filho que controla o input e o seletor*/ }
-    <NovaTarefa onAdicionar={adicionarTarefa}/>
+      {/* Barra de progresso */}
+      <BarraProgresso
+        totalTarefas={totalTarefas}
+        tarefasConcluidas={tarefasConcluidas}
+      />
 
-    {/*mapeando o estado tarefas para elementos*/ }
-    <h2>Lista de tarefas</h2>
-    <div className="lista-tarefas">
-      
-       <Tarefa tarefas ={tarefas} />
+      {/* Componente para adicionar novas tarefas */}
+      <NovaTarefa onAdicionar={adicionarTarefa} />
+
+      {/* Lista de tarefas agrupadas por período */}
+      <Tarefa tarefas={tarefas} onTarefaConcluida={tarefaConcluida} />
     </div>
-    </div>
-  )
+  );
 }
-export default App;
 
+export default App;
