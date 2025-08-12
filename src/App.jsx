@@ -1,5 +1,5 @@
 // Importa dependências do React e os estilos globais
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 // Importa os componentes filhos
@@ -9,10 +9,15 @@ import BarraProgresso from "./components/BarraProgresso";
 
 function App() {
   // Estado que armazena todas as tarefas
-  const [tarefas, setTarefas] = useState([
-    { id: 1, descricao: "Estudar React", periodo: "Manhã", concluida: true },
-    { id: 2, descricao: "Fazer almoço", periodo: "Tarde", concluida: false },
-  ]);
+  const [tarefas, setTarefas] = useState(() =>{
+    const tarefasSalvas = localStorage.getItem("tarefas");
+    return tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
+  });
+
+  //useEffect para salvar tarefas no localStorage sempre que mudarem
+  useEffect(() =>{
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }, [tarefas]); //roda toda vez que as tarefas mudarem
 
   const totalTarefas = tarefas.length;
   const tarefasConcluidas = tarefas.filter((t) => t.concluida).length;
